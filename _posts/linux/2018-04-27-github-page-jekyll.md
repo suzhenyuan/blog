@@ -1,10 +1,12 @@
 ---
 layout: default
 title: use jekyll for github page
+categories: Linux
+tags: Linux,Jekyll,Web
 ---
 # {{ page.title }}
 
-## Install yekyll on Windows 7
+## Install Jekyll on Windows 7
 
 Installation via [RubyInstaller][rubyinstaller_home]
 RubyInstaller is a self-contained Windows-based installer that includes the Ruby language, an execution environment, important documentation, and more.
@@ -24,7 +26,6 @@ Jekyll version show as below:
 ## Jekyll Layout
 
 
-<a href="{{ site.baseurl }}/index.html">Go back</a>
 
 [rubyinstaller_home]:https://rubyinstaller.org/
 [RubyInstaller_download]:https://rubyinstaller.org/downloads/
