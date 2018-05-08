@@ -1,6 +1,6 @@
 ---
 layout: default
-title: use jekyll for github page
+title: Jekyll for github page
 categories: Linux
 tags: Linux,Jekyll,Web
 ---
