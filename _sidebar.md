@@ -1,2 +1,2 @@
-* [Linux](linux/README.md)
+* Linux
   - [vim](/linux/vim/vim.md)
