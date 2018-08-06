@@ -1,2 +1,0 @@
-# suzhenyuan.github.io
-SuZhenYuanBlog
