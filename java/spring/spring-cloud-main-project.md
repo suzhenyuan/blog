@@ -1,25 +1,37 @@
 # Spring Cloud Main Projects
 
-Spring Cloud Config
+## Spring Cloud Config
+
 Centralized external configuration management backed by a git repository. The configuration resources map directly to Spring `Environment` but could be used by non-Spring applications if desired.
 
-Spring Cloud Netflix
-Integration with various Netflix OSS components (Eureka, Hystrix, Zuul, Archaius, etc.).
+支持git仓库的集中式外部配置管理，配置的资源直接映射到Spring环境中，如果需要的话，也可以由非spring应用使用。
 
-Spring Cloud Bus
+## Spring Cloud Netflix
+
+Integration with various Netflix OSS components (Eureka, Hystrix, Zuul, Archaius, etc.).
+集成了多个netflix开源组件(eureka、hystrix、zuul、archaius等)
+
+## Spring Cloud Bus
 An event bus for linking services and service instances together with distributed messaging. Useful for propagating state changes across a cluster (e.g. config change events).
 
-Spring Cloud for Cloud Foundry
+通过分布式消息连接服务实例与服务实例之间的时间总线。对跨集群的状态变化传递很有用
+
+## Spring Cloud for Cloud Foundry
 Integrates your application with Pivotal Cloud Foundry. Provides a service discovery implementation and also makes it easy to implement SSO and OAuth2 protected resources.
+在你的应用中集成Pivotal Cloud Foundry。提供一个服务发现实现，还很容易地实现SSO和OAuth2来保护资源
 
 Spring Cloud Open Service Broker
 Provides a starting point for building a service broker that implements the Open Service Broker API.
+提供一个基点来构建实现了Open Service Broker API的服务代理
 
-Spring Cloud Cluster
+## Spring Cloud Cluster
 Leadership election and common stateful patterns with an abstraction and implementation for Zookeeper, Redis, Hazelcast, Consul.
+
+使用Zookeeper, Redis, Hazelcast, Consul等集群的领导者选举和共有状态模式的抽象与实现
 
 Spring Cloud Consul
 Service discovery and configuration management with Hashicorp Consul.
+使用Hashicorp Consul的服务发现与配置管理
 
 Spring Cloud Security
 Provides support for load-balanced OAuth2 rest client and authentication header relays in a Zuul proxy.
