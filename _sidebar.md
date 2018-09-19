@@ -1,7 +1,0 @@
-* [Linux](#)
-  - [vim](/linux/vim/vim.md)
-* [JAVA](#)
-  - [Program](#)
-	- [jdk8 Optional使用总结](/java/jdk8/jdk8_optional)
-  - [pring](#)
-	- [pring-boot启动分析](/java/spring/spring-boot-start)
