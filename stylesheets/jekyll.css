@@ -1,3 +1,61 @@
 .nav-header{
     background-color: #563d7c;
 }
+
+.section-style{
+    background-color: #563d7c;
+}
+.page-title{
+    color:black;
+}
+
+.page-title-section{
+    border-top: black solid 1px;
+    background-color: white;
+    padding-top:10px;
+}
+.page-title .text-muted{
+    color: white!important;
+}
+.title-display{
+    font-size: 1.5rem;
+}
+.post-list-info-date{
+    fill:#6c757d;
+    margin-right: 5px;
+}
+.post-list-info{
+    margin-top:5px;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+
+}
+@media (min-width: 768px){
+
+    .page-title{
+        color:white;
+    }
+    .page-before-nav-section {
+        height: 50px;
+    }
+    .page-title-section{
+        height: 200px;
+        padding-top: 100px;
+        border-top: none;
+        background-color: #563d7c;
+    }
+    .title-display{
+        font-size: 2.5rem;
+    }
+
+    /*.header-jumbotron{
+        display: block;
+        margin-top:-300px;
+    }
+
+
+    .nav-header-jumbotron{
+        margin-top:200px;
+    }*/
+}
