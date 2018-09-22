@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="spring-cloud,spring-boot,java, maven,linux,mysql,algorithm,blog">
     <meta name="author" content="SuZhenYuan">
-    <title>Archives -- SuZhenYuan's Blog</title>
+    <title>spring cloud开始之旅，说在前面的话 -- SuZhenYuan's Blog</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Documentation extras -->
@@ -39,8 +39,8 @@
     <section class="page-title-section section-style">
         <div class="container">
         <div class="page-title">
-            <h1 class="title-display">Archives</h1>
-            <small class="text-muted">posts I have written</small>
+            <h1 class="title-display">spring cloud开始之旅，说在前面的话</h1>
+            <small class="text-muted"></small>
           </div>
           </div>
     </section>
@@ -51,90 +51,136 @@
             <div class="row">
             <main class="col-12 col-md-9 col-xl-8 content">
               <article>
-                <div class="post-list">
+                <h2 id="spring-boot--cloud-版本">spring boot &amp; cloud 版本</h2>
 
-<div class="card post-list-info">
-		<div class="card-body">
-			<h5 class="card-title"><a href="/spring-cloud/2018/09/22/spring-cloud-before-started.html">spring cloud开始之旅，说在前面的话</a></h5>
-			<h6 class="card-subtitle mb-2 text-muted"><svg class="post-list-info-date" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 8 8" >
-				<path d="M0 0v2h7v-2h-7zm0 3v4.91c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-4.91h-7zm1 1h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1z" />
-			  </svg>22 Sep 2018</h6>
-			<p class="card-text">在开始spring cloud开发之旅之前，先了解一下spring boot & cloud的版本情况。spring cloud系列的博文会使用Finchley.SR1的版本</p>
-		</div>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Edgware.SR4</th>
+      <th>Finchley.SR1</th>
+      <th>Finchley.BUILD-SNAPSHOT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spring-cloud-aws</td>
+      <td>1.2.3.RELEASE</td>
+      <td>2.0.0.RELEASE</td>
+      <td>2.0.1.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-bus</td>
+      <td>1.3.3.RELEASE</td>
+      <td>2.0.0.RELEASE</td>
+      <td>2.0.1.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-cli</td>
+      <td>1.4.1.RELEASE</td>
+      <td>2.0.0.RELEASE</td>
+      <td>2.0.1.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-commons</td>
+      <td>1.3.4.RELEASE</td>
+      <td>2.0.1.RELEASE</td>
+      <td>2.0.2.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-contract</td>
+      <td>1.2.5.RELEASE</td>
+      <td>2.0.1.RELEASE</td>
+      <td>2.0.2.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-config</td>
+      <td>1.4.4.RELEASE</td>
+      <td>2.0.1.RELEASE</td>
+      <td>2.0.2.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-netflix</td>
+      <td>1.4.5.RELEASE</td>
+      <td>2.0.1.RELEASE</td>
+      <td>2.0.2.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-security</td>
+      <td>1.2.3.RELEASE</td>
+      <td>2.0.0.RELEASE</td>
+      <td>2.0.1.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-cloudfoundry</td>
+      <td>1.1.2.RELEASE</td>
+      <td>2.0.0.RELEASE</td>
+      <td>2.0.1.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-consul</td>
+      <td>1.3.4.RELEASE</td>
+      <td>2.0.1.RELEASE</td>
+      <td>2.0.2.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-sleuth</td>
+      <td>1.3.4.RELEASE</td>
+      <td>2.0.1.RELEASE</td>
+      <td>2.0.2.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-stream</td>
+      <td>Ditmars.SR4</td>
+      <td>Elmhurst.SR1</td>
+      <td>Elmhurst.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-zookeeper</td>
+      <td>1.2.2.RELEASE</td>
+      <td>2.0.0.RELEASE</td>
+      <td>2.0.1.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-boot</td>
+      <td>1.5.14.RELEASE</td>
+      <td>2.0.4.RELEASE</td>
+      <td>2.0.4.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-task</td>
+      <td>1.2.3.RELEASE</td>
+      <td>2.0.0.RELEASE</td>
+      <td>2.0.1.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-vault</td>
+      <td>1.1.1.RELEASE</td>
+      <td>2.0.1.RELEASE</td>
+      <td>2.0.2.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-gateway</td>
+      <td>1.0.2.RELEASE</td>
+      <td>2.0.1.RELEASE</td>
+      <td>2.0.2.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-openfeign</td>
+      <td>-</td>
+      <td>2.0.1.RELEASE</td>
+      <td>2.0.2.BUILD-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td>spring-cloud-function</td>
+      <td>1.0.0.RELEASE</td>
+      <td>1.0.0.RELEASE</td>
+      <td>1.0.1.BUILD-SNAPSHOT</td>
+    </tr>
+  </tbody>
+</table>
 
-<div class="card post-list-info">
-		<div class="card-body">
-			<h5 class="card-title"><a href="/spring-cloud/2018/09/01/introduce-to-eureka.html">注册发现服务Eureka server介绍</a></h5>
-			<h6 class="card-subtitle mb-2 text-muted"><svg class="post-list-info-date" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 8 8" >
-				<path d="M0 0v2h7v-2h-7zm0 3v4.91c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-4.91h-7zm1 1h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1z" />
-			  </svg>01 Sep 2018</h6>
-			<p class="card-text">注册发现服务Eureka server介绍,及高可用配置，以及源代码分析</p>
-		</div>
-</div>
-
-<div class="card post-list-info">
-		<div class="card-body">
-			<h5 class="card-title"><a href="/java/2018/05/08/spring-boot.html">Spring boot</a></h5>
-			<h6 class="card-subtitle mb-2 text-muted"><svg class="post-list-info-date" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 8 8" >
-				<path d="M0 0v2h7v-2h-7zm0 3v4.91c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-4.91h-7zm1 1h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1z" />
-			  </svg>08 May 2018</h6>
-			<p class="card-text"></p>
-		</div>
-</div>
-
-<div class="card post-list-info">
-		<div class="card-body">
-			<h5 class="card-title"><a href="/linux/2018/05/04/git-hacks.html">Git Hacks</a></h5>
-			<h6 class="card-subtitle mb-2 text-muted"><svg class="post-list-info-date" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 8 8" >
-				<path d="M0 0v2h7v-2h-7zm0 3v4.91c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-4.91h-7zm1 1h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1z" />
-			  </svg>04 May 2018</h6>
-			<p class="card-text"></p>
-		</div>
-</div>
-
-<div class="card post-list-info">
-		<div class="card-body">
-			<h5 class="card-title"><a href="/java/2018/04/28/java-hacks.html">Java Hacks</a></h5>
-			<h6 class="card-subtitle mb-2 text-muted"><svg class="post-list-info-date" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 8 8" >
-				<path d="M0 0v2h7v-2h-7zm0 3v4.91c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-4.91h-7zm1 1h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1z" />
-			  </svg>28 Apr 2018</h6>
-			<p class="card-text"></p>
-		</div>
-</div>
-
-<div class="card post-list-info">
-		<div class="card-body">
-			<h5 class="card-title"><a href="/linux/2018/04/27/nginx-hacks.html">Nginx Hacks</a></h5>
-			<h6 class="card-subtitle mb-2 text-muted"><svg class="post-list-info-date" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 8 8" >
-				<path d="M0 0v2h7v-2h-7zm0 3v4.91c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-4.91h-7zm1 1h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1z" />
-			  </svg>27 Apr 2018</h6>
-			<p class="card-text"></p>
-		</div>
-</div>
-
-<div class="card post-list-info">
-		<div class="card-body">
-			<h5 class="card-title"><a href="/linux/2018/04/27/linux-hacks.html">Linux Hacks</a></h5>
-			<h6 class="card-subtitle mb-2 text-muted"><svg class="post-list-info-date" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 8 8" >
-				<path d="M0 0v2h7v-2h-7zm0 3v4.91c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-4.91h-7zm1 1h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1z" />
-			  </svg>27 Apr 2018</h6>
-			<p class="card-text"></p>
-		</div>
-</div>
-
-<div class="card post-list-info">
-		<div class="card-body">
-			<h5 class="card-title"><a href="/linux/2018/04/27/github-page-jekyll.html">Jekyll for github page</a></h5>
-			<h6 class="card-subtitle mb-2 text-muted"><svg class="post-list-info-date" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 8 8" >
-				<path d="M0 0v2h7v-2h-7zm0 3v4.91c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-4.91h-7zm1 1h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1z" />
-			  </svg>27 Apr 2018</h6>
-			<p class="card-text">how to build a blog with jekyll</p>
-		</div>
-</div>
-
-</div>
-
+<p>由于本人刚接触spring-cloud不久，截至2018-09-22日，也不过一个多月的时间。开始就使用<code class="highlighter-rouge">Finchley.SR1</code>的版本。在后面的博文中也会着重标记相关组件使用的版本号。</p>
 
               </article>
             </main>
