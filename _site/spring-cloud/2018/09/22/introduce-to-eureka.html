@@ -51,7 +51,32 @@
             <div class="row">
             <main class="col-12 col-md-9 col-xl-8 content">
               <article>
-                <p>##</p>
+                <p>Eureka是netflix的注册发现服务组件，eureka客户端可以通过发现服务获取注册到eureka服务器的实例。</p>
+
+<h2 id="pom配置">pom配置</h2>
+
+<p>以下代码放到全局的pom文件中，后面的项目还会用到的。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-netflix&lt;/artifactId&gt;
+            &lt;version&gt;2.0.1.RELEASE&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+</code></pre></div></div>
+
+<p>以下代码放到eureka项目的pom文件中</p>
+
+<p>参考列表：</p>
+
+<ol>
+  <li><a href="https://cloud.spring.io/spring-cloud-netflix/#quick-start">spring cloud netflix quick start</a></li>
+</ol>
 
               </article>
             </main>
