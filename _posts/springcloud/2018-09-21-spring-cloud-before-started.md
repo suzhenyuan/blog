@@ -42,3 +42,8 @@ spring-cloud-function	|	1.0.0.RELEASE	|	1.0.0.RELEASE	|	1.0.1.BUILD-SNAPSHOT
 ## 工欲善其事，必先利其器
 
 强烈建议eclipse安装spring tool插件。非eclipse用户可以无视。
+
+
+参考资料：
+
+1. [spring cloud quick start](https://projects.spring.io/spring-cloud/#quick-start)
