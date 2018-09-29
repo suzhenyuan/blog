@@ -1,5 +1,6 @@
 ---
 layout: default
+comments: true
 title: Spring boot
 categories: Java
 tags: spring-boot spring-cloud

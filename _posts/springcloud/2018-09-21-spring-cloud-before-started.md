@@ -1,5 +1,6 @@
 ---
 layout: default
+comments: true
 title: spring cloud开始之旅，说在前面的话
 sub_title: 无版本号不成参考。本系列涉及到的版本号为Finchley.SR1(基本都是2.0.x.RELEASE)
 meta-description: spring cloud before started, version of spring boot & cloud must be declare first

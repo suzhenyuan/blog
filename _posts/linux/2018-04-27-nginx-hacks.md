@@ -1,5 +1,6 @@
 ---
 layout: default
+comments: true
 title: Nginx Hacks
 categories: Linux
 tags: Linux,Nginx

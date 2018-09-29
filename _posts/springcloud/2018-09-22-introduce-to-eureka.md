@@ -1,5 +1,6 @@
 ---
 layout: default
+comments: true
 title: 注册发现服务Eureka server介绍
 sub_title: 
 meta-description: introduce to eureka server
