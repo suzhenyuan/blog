@@ -1,8 +1,3 @@
 permalink: date
 paginate: 5
 paginate_path: "blog/page:num"
-github_comments:
-  repo: gituser/gitrepo
-  branch: master
-  comment_template: comments.html
-  comments_template: comments.html
