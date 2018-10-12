@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post_layout
 comments: true
 title: spring cloud开始之旅，说在前面的话
 sub_title: 无版本号不成参考。本系列涉及到的版本号为Finchley.SR1(基本都是2.0.x.RELEASE)
