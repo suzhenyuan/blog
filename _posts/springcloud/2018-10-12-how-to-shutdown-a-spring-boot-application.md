@@ -22,13 +22,13 @@ Spring Boot Actuator提供了一套完备的监控方案用来监控Spring Boot�
     <dependencyManagement>
         <dependencies>
             <dependency>
-				<!-- Import dependency management from Spring Boot -->
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>2.0.4.RELEASE</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.0.4.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -57,31 +57,35 @@ Spring Boot Actuator提供了一套完备的监控方案用来监控Spring Boot�
 
 * 在没有做其他配置的情况下，直接执行以下命令即可。
 
+
     curl -X POST http://localhost:8080/actuator/shutdown
 
 * 复杂一点的情况，如果需要启用安全设置,同时关闭了csrf，
 
-    #application.properties中增加以下安全设置：
-    spring.security.user.name=user
-    spring.security.user.password=password
+    application.properties中增加以下安全设置：
 
-    #关闭csrf的configuration如下：
-    import org.springframework.context.annotation.Configuration;
-    import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-    import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+        spring.security.user.name=user
+        spring.security.user.password=password
 
-    @Configuration
-    public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.csrf().disable();
-            super.configure(http);
+    关闭csrf的configuration如下：
+
+        import org.springframework.context.annotation.Configuration;
+        import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+        import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+        @Configuration
+        public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+            @Override
+            protected void configure(HttpSecurity http) throws Exception {
+                http.csrf().disable();
+                super.configure(http);
+            }
         }
-    }
 
-则，对应的命令为：
+    则，对应的命令为：
 
-    curl -X POST http://user:password@localhost:8080/actuator/shutdown
+
+        curl -X POST http://user:password@localhost:8080/actuator/shutdown
 
 * 更复杂的情况，启用了安全设置，而没有关闭csrf，操作则会稍微复杂一点。思路如下：
     - 先从登录页获取当前csrf值
@@ -93,30 +97,31 @@ Spring Boot Actuator提供了一套完备的监控方案用来监控Spring Boot�
     具体脚本如下：
 
     
-    #/bin/bash
-    #description: shutdown a spring boot application with the protection of spring security without csrf disable
-    #1、get csrf token from login page
-    #2、login
-    #3、get csrf token from login page
-    #4、post to /actuator/shutdown
 
-    url_of_login="http://localhost:8080/login"
-    url_of_shutdown="http://localhost:8080/actuator/shutdown"
-    fcookie=cookie.txt
-    config_username=config_user
-    config_password=config_password
+        #/bin/bash
+        #description: shutdown a spring boot application with the protection of spring security without csrf disable
+        #1、get csrf token from login page
+        #2、login
+        #3、get csrf token from login page
+        #4、post to /actuator/shutdown
 
-    #get csrf from login page, save cookie to cookie.txt
-    csrf=`curl ${url_of_login} -c ${fcookie} | grep "csrf" | sed 's/\(.*\)value\="\([^""]*\)"\(.*\)/\2/g'`
-    echo 'csrf: ' ${csrf}
-    #login
-    curl -X POST ${url_of_login} -b ${fcookie} -c ${fcookie} -d "username=${config_username}&password=${config_password}&submit=Login&_csrf=${csrf}"
-    #get csrf from login page
-    csrf=`curl ${url_of_login} -b ${fcookie} -c ${fcookie} | grep "csrf" | sed 's/\(.*\)value\="\([^""]*\)"\(.*\)/\2/g'`
-    #post to /actuator/shutdown
-    result=`curl -X POST -b ${fcookie} -H "X-CSRF-TOKEN: ${csrf}" ${url_of_shutdown}`
+        url_of_login="http://localhost:8080/login"
+        url_of_shutdown="http://localhost:8080/actuator/shutdown"
+        fcookie=cookie.txt
+        config_username=config_user
+        config_password=config_password
 
-    if [ "$result" = '{"message":"Shutting down, bye..."}' ]; then
-        echo -e "\033[49;31;1;5m application shutdown...\033[0m"
-    fi
+        #get csrf from login page, save cookie to cookie.txt
+        csrf=`curl ${url_of_login} -c ${fcookie} | grep "csrf" | sed 's/\(.*\)value\="\([^""]*\)"\(.*\)/\2/g'`
+        echo 'csrf: ' ${csrf}
+        #login
+        curl -X POST ${url_of_login} -b ${fcookie} -c ${fcookie} -d "username=${config_username}&password=${config_password}&submit=Login&_csrf=${csrf}"
+        #get csrf from login page
+        csrf=`curl ${url_of_login} -b ${fcookie} -c ${fcookie} | grep "csrf" | sed 's/\(.*\)value\="\([^""]*\)"\(.*\)/\2/g'`
+        #post to /actuator/shutdown
+        result=`curl -X POST -b ${fcookie} -H "X-CSRF-TOKEN: ${csrf}" ${url_of_shutdown}`
+
+        if [ "$result" = '{"message":"Shutting down, bye..."}' ]; then
+            echo -e "\033[49;31;1;5m application shutdown...\033[0m"
+        fi
 

@@ -7,7 +7,7 @@
     <meta name="author" content="SuZhenYuan">
     <title>如何优雅地停止spring boot应用 -- SuZhenYuan's Blog</title>
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" >
     <!-- Documentation extras -->
     <link href="https://cdn.bootcss.com/docsearch.js/2.4.1/docsearch.min.css" rel="stylesheet">
     <link href="/stylesheets/docs.min.css" rel="stylesheet">
@@ -76,13 +76,13 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependencyManagement&gt;
     &lt;dependencies&gt;
         &lt;dependency&gt;
-			&lt;!-- Import dependency management from Spring Boot --&gt;
-			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-			&lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;
-			&lt;version&gt;2.0.4.RELEASE&lt;/version&gt;
-			&lt;type&gt;pom&lt;/type&gt;
-			&lt;scope&gt;import&lt;/scope&gt;
-		&lt;/dependency&gt;
+            &lt;!-- Import dependency management from Spring Boot --&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;
+            &lt;version&gt;2.0.4.RELEASE&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
     &lt;/dependencies&gt;
 &lt;/dependencyManagement&gt;
 
@@ -118,33 +118,35 @@ management.endpoints.web.exposure.include= shutdown
   <li>
     <p>复杂一点的情况，如果需要启用安全设置,同时关闭了csrf，</p>
 
-    <p>#application.properties中增加以下安全设置：
-  spring.security.user.name=user
-  spring.security.user.password=password</p>
+    <p>application.properties中增加以下安全设置：</p>
 
-    <p>#关闭csrf的configuration如下：
-  import org.springframework.context.annotation.Configuration;
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  spring.security.user.name=user
+  spring.security.user.password=password
+</code></pre></div>    </div>
+
+    <p>关闭csrf的configuration如下：</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  import org.springframework.context.annotation.Configuration;
   import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-  import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;</p>
+  import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-    <p>@Configuration
+  @Configuration
   public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
       @Override
       protected void configure(HttpSecurity http) throws Exception {
           http.csrf().disable();
           super.configure(http);
       }
-  }</p>
+  }
+</code></pre></div>    </div>
+
+    <p>则，对应的命令为：</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  curl -X POST http://user:password@localhost:8080/actuator/shutdown
+</code></pre></div>    </div>
   </li>
-</ul>
-
-<p>则，对应的命令为：</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -X POST http://user:password@localhost:8080/actuator/shutdown
-</code></pre></div></div>
-
-<ul>
-  <li>更复杂的情况，启用了安全设置，而没有关闭csrf，操作则会稍微复杂一点。思路如下：
+  <li>
+    <p>更复杂的情况，启用了安全设置，而没有关闭csrf，操作则会稍微复杂一点。思路如下：</p>
     <ul>
       <li>先从登录页获取当前csrf值</li>
       <li>登录</li>
@@ -155,32 +157,33 @@ management.endpoints.web.exposure.include= shutdown
 
     <p>具体脚本如下：</p>
 
-    <p>#/bin/bash
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  #/bin/bash
   #description: shutdown a spring boot application with the protection of spring security without csrf disable
   #1、get csrf token from login page
   #2、login
   #3、get csrf token from login page
-  #4、post to /actuator/shutdown</p>
+  #4、post to /actuator/shutdown
 
-    <p>url_of_login=”http://localhost:8080/login”
-  url_of_shutdown=”http://localhost:8080/actuator/shutdown”
+  url_of_login="http://localhost:8080/login"
+  url_of_shutdown="http://localhost:8080/actuator/shutdown"
   fcookie=cookie.txt
   config_username=config_user
-  config_password=config_password</p>
+  config_password=config_password
 
-    <p>#get csrf from login page, save cookie to cookie.txt
-  csrf=<code class="highlighter-rouge">curl ${url_of_login} -c ${fcookie} | grep "csrf" | sed 's/\(.*\)value\="\([^""]*\)"\(.*\)/\2/g'</code>
-  echo ‘csrf: ‘ ${csrf}
+  #get csrf from login page, save cookie to cookie.txt
+  csrf=`curl ${url_of_login} -c ${fcookie} | grep "csrf" | sed 's/\(.*\)value\="\([^""]*\)"\(.*\)/\2/g'`
+  echo 'csrf: ' ${csrf}
   #login
-  curl -X POST ${url_of_login} -b ${fcookie} -c ${fcookie} -d “username=${config_username}&amp;password=${config_password}&amp;submit=Login&amp;_csrf=${csrf}”
+  curl -X POST ${url_of_login} -b ${fcookie} -c ${fcookie} -d "username=${config_username}&amp;password=${config_password}&amp;submit=Login&amp;_csrf=${csrf}"
   #get csrf from login page
-  csrf=<code class="highlighter-rouge">curl ${url_of_login} -b ${fcookie} -c ${fcookie} | grep "csrf" | sed 's/\(.*\)value\="\([^""]*\)"\(.*\)/\2/g'</code>
+  csrf=`curl ${url_of_login} -b ${fcookie} -c ${fcookie} | grep "csrf" | sed 's/\(.*\)value\="\([^""]*\)"\(.*\)/\2/g'`
   #post to /actuator/shutdown
-  result=<code class="highlighter-rouge">curl -X POST -b ${fcookie} -H "X-CSRF-TOKEN: ${csrf}" ${url_of_shutdown}</code></p>
+  result=`curl -X POST -b ${fcookie} -H "X-CSRF-TOKEN: ${csrf}" ${url_of_shutdown}`
 
-    <p>if [ “$result” = ‘{“message”:”Shutting down, bye…”}’ ]; then
-      echo -e “\033[49;31;1;5m application shutdown…\033[0m”
-  fi</p>
+  if [ "$result" = '{"message":"Shutting down, bye..."}' ]; then
+      echo -e "\033[49;31;1;5m application shutdown...\033[0m"
+  fi
+</code></pre></div>    </div>
   </li>
 </ul>
 
@@ -234,10 +237,10 @@ management.endpoints.web.exposure.include= shutdown
     
 
     
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="/javascripts/jquery-slim.min.js"></script>
     <script>window.jQuery || document.write('<script src="/javascripts/jquery-slim.min.js"><\/script>')</script>
-    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="/javascripts/popper.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
     <script src="/javascripts/stickUp.min.js"></script>
     <script type="text/javascript">
       //initiating jQuery
