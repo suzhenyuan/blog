@@ -3,7 +3,8 @@ layout: default
 comments: true
 title: 注册发现服务Eureka server介绍
 sub_title: 
-meta-description: introduce to eureka server
+meta-keyword: spring boot,eureka server, service discovery
+meta-description: Introduce to eureka server.[spring boot 2.0.x]
 categories: spring-cloud
 tags: spring-cloud,eureka
 description: 注册发现服务Eureka server介绍,及高可用配置，以及源代码分析

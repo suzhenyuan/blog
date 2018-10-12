@@ -3,10 +3,12 @@ layout: default
 comments: true
 title: 如何优雅地停止spring boot应用
 sub_title: 
-meta-description: How to shutdown a spring boot application with the help of /actuator/shutdown。
-categories: spring-cloud
-tags: spring-cloud,eureka
-description: 如何优雅地通过actuator的shutdown端点来停止spring boot应用
+meta-keyword: spring boot,actuator, shutdown,spring-security, csrf
+meta-description: How to shutdown a spring boot application with the help of /actuator/shutdown。[spring boot 2.0.x]
+categories: spring-boot
+tags: spring-security
+description: 在不同的security配置下，如何优雅地通过actuator的shutdown端点来停止spring boot应用
+date: 2018-10-12
 ---
 
 Spring Boot Actuator提供了一套完备的监控方案用来监控Spring Boot应用。本文将会根据在不同的场景下，采用不同的方式来关闭一个spring boot应用的。这些场景包括：
