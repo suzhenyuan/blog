@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keyword" content=""/>
-    <meta name="description" content="">
+    <meta name="keyword" content="git pull, git add --all , git commit -am"" , git push"/>
+    <meta name="description" content="How to shutdown a spring boot application with the help of /actuator/shutdown。[spring boot 2.0.x]">
     <meta name="author" content="SuZhenYuan">
-    <title>Git Hacks -- SuZhenYuan's Blog</title>
+    <title>git 常见用法 -- SuZhenYuan's Blog</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" >
     <!-- Documentation extras -->
@@ -50,8 +50,8 @@
     <section class="page-title-section section-style">
         <div class="container">
         <div class="page-title">
-            <h1 class="title-display">Git Hacks</h1>
-            <small class="text-muted"></small>
+            <h1 class="title-display">git 常见用法</h1>
+            <small class="text-muted">git add --all && git commit -am"modify" && git push</small>
           </div>
           </div>
     </section>
@@ -59,18 +59,46 @@
 
         <div class="container">
             <hr/>
-            <div class="row">
-            <main class="col-12 col-md-9 col-xl-8 content">
               <article>
-                <h1 id="git-hacks">Git Hacks</h1>
+                <h2 id="git命令太长alias来帮忙">git命令太长，<code class="highlighter-rouge">alias</code>来帮忙。</h2>
 
-<h3 id="git-unlink-of-file-gitobjectspackpack-pack-failed">Git Unlink of file ‘.git/objects/pack/pack-***.pack’ failed.</h3>
+<p>git命令太长，可以使用<code class="highlighter-rouge">alias</code>来给对应的命令取个别名。在/etc/profile中添加以下内容：</p>
 
-<p>just run the command as below can solve it</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git gc
-git repack -d -l
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias gst='git status'
+alias gpu='git push'
+alias gff='git diff'
+alias gpl='git pull'
+alias gchk='git checkout'
 </code></pre></div></div>
+
+<p><code class="highlighter-rouge">git add --all &amp;&amp; git commit -am"{comment}" &amp;&amp; git push</code> 可以通过一个简单的脚本来替代，脚本内容如下：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">cd</span> <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>
+<span class="nv">comment</span><span class="o">=</span><span class="nv">$@</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$# </span><span class="o">==</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
+	</span><span class="nb">echo</span> <span class="s2">"USAGE: gitpush COMMENT"</span> 
+	<span class="nb">exit </span>1
+<span class="k">fi
+</span>git add <span class="nt">--all</span> <span class="o">&amp;&amp;</span> git commit <span class="nt">-am</span><span class="s2">"</span><span class="k">${</span><span class="nv">comment</span><span class="k">}</span><span class="s2">"</span> <span class="o">&amp;&amp;</span> git push
+</code></pre></div></div>
+
+<p>把上述脚本保存成gps.sh, 并把该脚本保存位置添加到PATH环境变量中。提交代码的命令就大大地简化了，只需要执行<code class="highlighter-rouge">gps 注释</code>命令，文件改动将会提交到远程仓库。</p>
+
+<h2 id="使用git时遇到的问题及解决办法">使用git时，遇到的问题及解决办法</h2>
+
+<ul>
+  <li>
+    <p>Git Unlink of file ‘.git/objects/pack/pack-***.pack’ failed.</p>
+
+    <p>just run the command as below can solve it</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git gc
+  git repack -d -l
+</code></pre></div>    </div>
+  </li>
+</ul>
 
 <p>see more. <a href="https://progit.bootcss.com/">Pro Git</a></p>
 
@@ -97,26 +125,6 @@ git repack -d -l
               </script>
               <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
               
-            </main>
-            <div class="col-12 col-md-3  col-xl-4 sidebar">
-                <div class="card text-center">
-                    <div class="card-header">
-                      精选主题
-                    </div>
-                </div>
-
-
-                <div class="card text-center">
-                    <div class="card-body">
-                      <h5 class="card-title">Duddo、Druid</h5>
-                      <p class="card-text">阿里巴巴分布式框架</p>
-                      <a href="#" onclick="ga('send', 'event', 'Navbar', 'Blog links', 'dubbo');" class="btn btn-primary">Get It!</a>
-                    </div>
-                  </div>
-
-
-              </div>
-            </div>
           </div>
 
     </section>

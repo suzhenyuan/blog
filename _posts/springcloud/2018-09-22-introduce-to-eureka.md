@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post_layout
 comments: true
 title: 注册发现服务Eureka server介绍
 sub_title: 

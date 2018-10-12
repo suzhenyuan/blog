@@ -6,7 +6,6 @@ categories: Linux
 tags: Linux,Jekyll,Web
 description: how to build a blog with jekyll
 ---
-# {{ page.title }}
 
 ## Install Jekyll on Windows 7
 

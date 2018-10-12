@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post_layout
 comments: true
 title: 如何优雅地停止spring boot应用
 sub_title: 

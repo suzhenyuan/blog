@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keyword" content="spring boot,actuator, shutdown,spring-security, csrf"/>
-    <meta name="description" content="How to shutdown a spring boot application with the help of /actuator/shutdown。[spring boot 2.0.x]">
+    <meta name="keyword" content="{{page.meta-keyword}}"/>
+    <meta name="description" content="{{page.meta-description}}">
     <meta name="author" content="SuZhenYuan">
-    <title>如何优雅地停止spring boot应用 -- SuZhenYuan's Blog</title>
+    <title>{{page.title}} -- SuZhenYuan's Blog</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" >
     <!-- Documentation extras -->
@@ -50,8 +50,8 @@
     <section class="page-title-section section-style">
         <div class="container">
         <div class="page-title">
-            <h1 class="title-display">如何优雅地停止spring boot应用</h1>
-            <small class="text-muted"></small>
+            <h1 class="title-display">{{page.title}}</h1>
+            <small class="text-muted">{{page.sub_title}}</small>
           </div>
           </div>
     </section>
@@ -60,135 +60,9 @@
         <div class="container">
             <hr/>
               <article>
-                <p>Spring Boot Actuator提供了一套完备的监控方案用来监控Spring Boot应用。本文将会根据在不同的场景下，采用不同的方式来关闭一个spring boot应用的。这些场景包括：</p>
-
-<ul>
-  <li>普通场景，没有启用任何安全设置</li>
-  <li>启用了security配置，同时关闭了csrf</li>
-  <li>启用了security配置，没有关闭csrf</li>
-</ul>
-
-<h2 id="pom配置">pom配置</h2>
-
-<p>引入actuator和security相关的包，spring-boot的版本号为<code class="highlighter-rouge">2.0.4.RELEASE</code>，主要pom配置如下：</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependencyManagement&gt;
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;!-- Import dependency management from Spring Boot --&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;
-            &lt;version&gt;2.0.4.RELEASE&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-&lt;/dependencyManagement&gt;
-
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
-&lt;/dependency&gt;
-
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
-&lt;/dependency&gt;
-</code></pre></div></div>
-
-<h2 id="applicationproperties">application.properties</h2>
-<p>在application.properties中，需要启用shutdown相关的endpoint：</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>management.endpoint.shutdown.enabled=true
-#注，此处只是配置了shutdown，如果需要启用其他endpoints，在shutdown后面添加即可，也可以直接用*号，启用所有的endpoints
-management.endpoints.web.exposure.include= shutdown
-</code></pre></div></div>
-
-<h2 id="关闭脚本">关闭脚本</h2>
-
-<p>假设应用运行地址是<code class="highlighter-rouge">http://localhost:8080</code></p>
-
-<ul>
-  <li>
-    <p>在没有做其他配置的情况下，直接执行以下命令即可。</p>
-
-    <p>curl -X POST http://localhost:8080/actuator/shutdown</p>
-  </li>
-  <li>
-    <p>复杂一点的情况，如果需要启用安全设置,同时关闭了csrf，</p>
-
-    <p>application.properties中增加以下安全设置：</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  spring.security.user.name=user
-  spring.security.user.password=password
-</code></pre></div>    </div>
-
-    <p>关闭csrf的configuration如下：</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  import org.springframework.context.annotation.Configuration;
-  import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-  import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-  @Configuration
-  public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-      @Override
-      protected void configure(HttpSecurity http) throws Exception {
-          http.csrf().disable();
-          super.configure(http);
-      }
-  }
-</code></pre></div>    </div>
-
-    <p>则，对应的命令为：</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  curl -X POST http://user:password@localhost:8080/actuator/shutdown
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>更复杂的情况，启用了安全设置，而没有关闭csrf，操作则会稍微复杂一点。思路如下：</p>
-    <ul>
-      <li>先从登录页获取当前csrf值</li>
-      <li>登录</li>
-      <li>再从登录页面获取一次csrf</li>
-      <li>调用关闭url</li>
-      <li>注意事项：使用curl时，必须带上前一个请求的cookie，并保存响应后的cookie</li>
-    </ul>
-
-    <p>具体脚本如下：</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  #/bin/bash
-  #description: shutdown a spring boot application with the protection of spring security without csrf disable
-  #1、get csrf token from login page
-  #2、login
-  #3、get csrf token from login page
-  #4、post to /actuator/shutdown
-
-  url_of_login="http://localhost:8080/login"
-  url_of_shutdown="http://localhost:8080/actuator/shutdown"
-  fcookie=cookie.txt
-  config_username=config_user
-  config_password=config_password
-
-  #get csrf from login page, save cookie to cookie.txt
-  csrf=`curl ${url_of_login} -c ${fcookie} | grep "csrf" | sed 's/\(.*\)value\="\([^""]*\)"\(.*\)/\2/g'`
-  echo 'csrf: ' ${csrf}
-  #login
-  curl -X POST ${url_of_login} -b ${fcookie} -c ${fcookie} -d "username=${config_username}&amp;password=${config_password}&amp;submit=Login&amp;_csrf=${csrf}"
-  #get csrf from login page
-  csrf=`curl ${url_of_login} -b ${fcookie} -c ${fcookie} | grep "csrf" | sed 's/\(.*\)value\="\([^""]*\)"\(.*\)/\2/g'`
-  #post to /actuator/shutdown
-  result=`curl -X POST -b ${fcookie} -H "X-CSRF-TOKEN: ${csrf}" ${url_of_shutdown}`
-
-  if [ "$result" = '{"message":"Shutting down, bye..."}' ]; then
-      echo -e "\033[49;31;1;5m application shutdown...\033[0m"
-  fi
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-
+                {{content}}
               </article>
-               <div id="disqus_thread"></div>
+              {% if page.comments %} <div id="disqus_thread"></div>
               <script>
               
               /**
@@ -208,7 +82,7 @@ management.endpoints.web.exposure.include= shutdown
               })();
               </script>
               <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-              
+              {% endif %}
           </div>
 
     </section>
