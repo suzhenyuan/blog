@@ -1,2 +1,2 @@
 
-sitemap : https://blog.19881101.com/sitemap.xml
+sitemap: https://blog.19881101.com/sitemap.xml
