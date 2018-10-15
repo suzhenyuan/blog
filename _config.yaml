@@ -1,4 +1,4 @@
-baseurl: https://blog.19881101.com
+#baseurl: https://blog.19881101.com
 permalink: date
 paginate: 5
 paginate_path: "blog/page:num"
