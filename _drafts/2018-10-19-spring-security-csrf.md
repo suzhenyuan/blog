@@ -3,127 +3,104 @@ layout: post_layout
 comments: true
 title: Spring Secutiry安全配置WebSecurityConfigurerAdapter
 sub_title: 
-meta-keyword: spring boot,actuator, shutdown,spring-security, csrf
+meta-keyword: spring boot,actuator, shutdown,spring-security, csrf, WebSecurityConfigurerAdapter
 meta-description: How to shutdown a spring boot application with the help of /actuator/shutdown。[spring boot 2.0.x]
 categories: spring-boot
 tags: spring-security
-description: 在不同的security配置下，如何优雅地通过actuator的shutdown端点来停止spring boot应用
+description:  Spring Security 之 WebSecurityConfigurerAdapter介绍
 date: 2018-10-12
 ---
 
-Spring Boot Actuator提供了一套完备的监控方案用来监控Spring Boot应用。本文将会根据在不同的场景下，采用不同的方式来关闭一个spring boot应用的。这些场景包括：
+Spring Security是一个功能强大且可高度定制的身份验证和访问控制框架。 它是保护基于Spring的应用程序的事实上的标准。
 
-* 普通场景，没有启用任何安全设置
-* 启用了security配置，同时关闭了csrf
-* 启用了security配置，没有关闭csrf
+Spring Security是一个专注于为Java应用程序提供身份验证和授权的框架。 与所有Spring项目一样，Spring Security的真正强大之处在于它可以轻松扩展以满足自定义要求。
 
-## pom配置
+spring-security-config的版本号为`5.0.7.RELEASE`
 
-引入actuator和security相关的包，spring-boot的版本号为`2.0.4.RELEASE`，主要pom配置如下：
+本文将会介绍一下WebSecurityConfigurerAdapter中两个常用的configure()函数，他们分别是：
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <!-- Import dependency management from Spring Boot -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.0.4.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
-
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
+    /**
+	 * Override this method to configure {@link WebSecurity}. For example, if you wish to
+	 * ignore certain requests.
+	 */
+	public void configure(WebSecurity web) throws Exception {
+	}
 
 
-## application.properties
-在application.properties中，需要启用shutdown相关的endpoint：
+    /**
+	 * Override this method to configure the {@link HttpSecurity}. Typically subclasses
+	 * should not invoke this method by calling super as it may override their
+	 * configuration. The default configuration is:
+	 *
+	 * <pre>
+	 * http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
+	 * </pre>
+	 *
+	 * @param http the {@link HttpSecurity} to modify
+	 * @throws Exception if an error occurs
+	 */
+    protected void configure(HttpSecurity http) throws Exception {
+		logger.debug("Using default configure(HttpSecurity). If subclassed this will potentially override subclass configure(HttpSecurity).");
+
+		http
+			.authorizeRequests()
+				.anyRequest().authenticated()
+				.and()
+			.formLogin().and()
+			.httpBasic();
+	}
+
+## configure(WebSecurity web)
+
+在子类中重新该函数，可以在过滤器中排除特定的url的处理，比如:
+    
+    @Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/actuator/info");
+	}
+该功能使用起来比较简单（或者，是我理解的比较肤浅）。
+
+## protected void configure(HttpSecurity http) 
+该函数可以控制资源的访问权限，csrf配置等。比如：
+
+- 关闭csrf
+
+
+    @Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
+	}
+  很多博客提到关闭csrf都是使用了以上的代码，但是，上述代码存在一个问题，授权访问相关的配置没了。查看源代码，实际上，`config(HttpSecurity http)` 是有默认实现的`http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();`。 在不作太多改变的情况下，应该用下面的代码：
 
     
-    management.endpoint.shutdown.enabled=true
-    #注，此处只是配置了shutdown，如果需要启用其他endpoints，在shutdown后面添加即可，也可以直接用*号，启用所有的endpoints
-    management.endpoints.web.exposure.include= shutdown
+    @Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
+		super.configure(http);
+	}
 
-## 关闭脚本
+- 定制url访问控制
 
-假设应用运行地址是`http://localhost:8080`
+比如，对/actuator/shutdown保持授权要求，其他/actuator/* 不作要求，则配置如下：
 
-* 在没有做其他配置的情况下，直接执行以下命令即可。
+    @Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
+		http.authorizeRequests().antMatchers("/actuator/shutdown").authenticated();
+		http.authorizeRequests().antMatchers("/actuator/**").permitAll();
+		super.configure(http);
+	}
 
+- 顺便提一下spring boot admin
 
-    curl -X POST http://localhost:8080/actuator/shutdown
-
-* 复杂一点的情况，如果需要启用安全设置,同时关闭了csrf，
-
-    application.properties中增加以下安全设置：
-
-        spring.security.user.name=user
-        spring.security.user.password=password
-
-    关闭csrf的configuration如下：
-
-        import org.springframework.context.annotation.Configuration;
-        import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-        import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-        @Configuration
-        public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-            @Override
-            protected void configure(HttpSecurity http) throws Exception {
-                http.csrf().disable();
-                super.configure(http);
-            }
-        }
-
-    则，对应的命令为：
+  在spring boot admin客户端的配置如下：
 
 
-        curl -X POST http://user:password@localhost:8080/actuator/shutdown
-
-* 更复杂的情况，启用了安全设置，而没有关闭csrf，操作则会稍微复杂一点。思路如下：
-    - 先从登录页获取当前csrf值
-    - 登录
-    - 再从登录页面获取一次csrf
-    - 调用关闭url
-    - 注意事项：使用curl时，必须带上前一个请求的cookie，并保存响应后的cookie
-
-    具体脚本如下：
-
+    spring.boot.admin.client.url=http://localhost:8750
+    spring.boot.admin.client.username=bootadmin_user
+    spring.boot.admin.client.password=bootadmin_password
     
+    spring.boot.admin.client.instance.metadata.user.name=${spring.security.user.name}
+    spring.boot.admin.client.instance.metadata.user.password=${spring.security.user.password}
 
-        #/bin/bash
-        #description: shutdown a spring boot application with the protection of spring security without csrf disable
-        #1、get csrf token from login page
-        #2、login
-        #3、get csrf token from login page
-        #4、post to /actuator/shutdown
-
-        url_of_login="http://localhost:8080/login"
-        url_of_shutdown="http://localhost:8080/actuator/shutdown"
-        fcookie=cookie.txt
-        config_username=config_user
-        config_password=config_password
-
-        #get csrf from login page, save cookie to cookie.txt
-        csrf=`curl ${url_of_login} -c ${fcookie} | grep "csrf" | sed 's/\(.*\)value\="\([^""]*\)"\(.*\)/\2/g'`
-        echo 'csrf: ' ${csrf}
-        #login
-        curl -X POST ${url_of_login} -b ${fcookie} -c ${fcookie} -d "username=${config_username}&password=${config_password}&submit=Login&_csrf=${csrf}"
-        #get csrf from login page
-        csrf=`curl ${url_of_login} -b ${fcookie} -c ${fcookie} | grep "csrf" | sed 's/\(.*\)value\="\([^""]*\)"\(.*\)/\2/g'`
-        #post to /actuator/shutdown
-        result=`curl -X POST -b ${fcookie} -H "X-CSRF-TOKEN: ${csrf}" ${url_of_shutdown}`
-
-        if [ "$result" = '{"message":"Shutting down, bye..."}' ]; then
-            echo -e "\033[49;31;1;5m application shutdown...\033[0m"
-        fi
-
+  在客户端的配置中，是可以通过`spring.boot.admin.client.instance.metadata`把username和password传递给spring boot admin,而客户端是不需要关闭security的，从而确保客户端不受安全威胁。
