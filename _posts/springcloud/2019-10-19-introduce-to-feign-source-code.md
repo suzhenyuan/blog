@@ -265,6 +265,13 @@ feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接�
 
   在异常处理中，还需要根据同步请求还是异步请求，采取不同的策略。
 
+## feign配置
+
+    #连接超时时间
+    ribbon.ConnectTimeout=30000
+    #读取超时时间
+    ribbon.ReadTimeout=60000
+
 
 ## 写在最后的话
 
