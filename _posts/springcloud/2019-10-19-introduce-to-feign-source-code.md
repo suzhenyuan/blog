@@ -41,6 +41,7 @@ description: feign 源代码解析，分析了restTemplate、request与response�
     
 feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接调本地方法就行了，不需要往下执行。
     
+	
     @Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		if ("equals".equals(method.getName())) {
@@ -63,6 +64,7 @@ feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接�
    上文`dispatch.get(method).invoke(args);`调用函数如下：
 
 
+   
     @Override
 	public Object invoke(Object[] argv) throws Throwable {
 		RequestTemplate template = buildTemplateFromArgs.create(argv);
@@ -79,6 +81,8 @@ feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接�
 			}
 		}
 	}
+	
+	
 
    这里做了几个事情：
     - RequestTemplate: 组装请求参数
@@ -102,6 +106,7 @@ feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接�
       }
 
 * executeAndDecode 发送请求与响应处理
+
 
         Object executeAndDecode(RequestTemplate template) throws Throwable {
             //创建request
@@ -178,6 +183,7 @@ feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接�
 
    在服务提供者与服务消费者之间，如果需要把提供者发生的异常传递给消费者，提供者可以通过`@ControllerAdvice`捕捉异常，返回500. 如下所示：
 
+   
     @ControllerAdvice
     public class ProviderControllerAdviceHandler {
     
@@ -214,6 +220,7 @@ feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接�
    在消费者端自定义feign的errorDecoder，如下所示：
 
     
+	
     public class FeignErrorDecoder implements ErrorDecoder{
     
     	public Exception decode(String methodKey, Response response) {
@@ -235,6 +242,7 @@ feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接�
    消费者统一异常处理流程如下：
 
     
+	
     @ControllerAdvice
     public class GlobalExceptionHandler {
     	private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
