@@ -286,3 +286,14 @@ feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接�
 这里只是大概梳理了一下feign对网络请求的流程，太细节的内容，我也没有太深入，主要还是点到即止，先解决问题再说。
 
 在实现异常统一处理流程的时候，只是看了相关的文档和博客，但是遇到的问题，根本就无从解决，最后还是回归代码，代码里面已经告诉了你一切内容。feign的流程代码也不是很复杂，相信大家都可以看得明白。
+
+
+## 其他内容 
+
+- spring-cloud-openfien-core-2.0.1.RELEASE.jar
+FeignClientsRegistrar.registerFeignClients()
+
+
+- spring-boot-autoconfigure-2.0.4.RELEASE.jar
+IntegrationAutoConfigurationScanRegistrar.registerBeanDefinitions()
+
