@@ -4,11 +4,11 @@ comments: true
 title: Spring Secutiry安全配置WebSecurityConfigurerAdapter
 sub_title: 
 meta-keyword: spring boot,actuator, shutdown,spring-security, csrf, WebSecurityConfigurerAdapter
-meta-description: How to shutdown a spring boot application with the help of /actuator/shutdown。[spring boot 2.0.x]
+meta-description: Introduce to spring-security-config. 。[spring boot 2.0.x]
 categories: spring-boot
 tags: spring-security
 description:  Spring Security 之 WebSecurityConfigurerAdapter介绍
-date: 2018-10-12
+date: 2018-10-19
 ---
 
 Spring Security是一个功能强大且可高度定制的身份验证和访问控制框架。 它是保护基于Spring的应用程序的事实上的标准。
