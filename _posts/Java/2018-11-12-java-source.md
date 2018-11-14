@@ -50,7 +50,7 @@ date: 2018-11-12
 `(e.hash & oldCap) == 0`的判断，由于容量oldCap都是2的倍数(假设第k位为1)，当`e.hash & oldCap=0`时，则e.hash为oldCap的偶数倍(则k位不为1)+余数，当`e.hash & oldCap=1`时，则e.hash为oldCap的奇数倍(则k位为1)+余数。
 
 数学水平不够，只能按照这样子来理解了。
-
+ 
 * `split`分拆
     
 
@@ -67,3 +67,44 @@ date: 2018-11-12
 
 
 
+## ArrayList
+
+* `removeAll`/`batchRemove` 批量删除
+    
+
+    public boolean removeAll(Collection<?> c) {
+        Objects.requireNonNull(c);
+        return batchRemove(c, false);
+    }
+
+    private boolean batchRemove(Collection<?> c, boolean complement) {
+        final Object[] elementData = this.elementData;
+        int r = 0, w = 0;
+        boolean modified = false;
+        try {
+            for (; r < size; r++)
+                if (c.contains(elementData[r]) == complement)
+                    elementData[w++] = elementData[r];
+        } finally {
+            // Preserve behavioral compatibility with AbstractCollection,
+            // even if c.contains() throws.
+            if (r != size) {
+                System.arraycopy(elementData, r,
+                                 elementData, w,
+                                 size - r);
+                w += size - r;
+            }
+            if (w != size) {
+                // clear to let GC do its work
+                for (int i = w; i < size; i++)
+                    elementData[i] = null;
+                modCount += size - w;
+                size = w;
+                modified = true;
+            }
+        }
+        return modified;
+    }
+
+数组的批量移除，设定两个游标，一个指定当前判断的元素r，一个指向当前有效的元素w，如果r为有效元素，则把r指向的元素指向w指向的位置，同时r++,w++，否则r++。最后，把w开始的位置，到列表最后，全部置为null即可。
+思路：把后一个有效元素覆盖当前无效元素
