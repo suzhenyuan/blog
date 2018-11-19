@@ -16,6 +16,7 @@ date: 2018-11-12
 * `putVal` hash下标的确定`(tab.length-1) & hash`
 
 
+
     Node<K,V>[] tab; Node<K,V> p; int n, i;
     if ((tab = table) == null || (n = tab.length) == 0)
         n = (tab = resize()).length;
@@ -25,6 +26,7 @@ date: 2018-11-12
 由于tab.length为2的倍数，假设为1000，减一后，变成了0111，与hash做与运算后，得到0111，即为hash%tab.length.
 
 * `resize()`扩容，原hash链表按低位与高位拆分为两组
+
 
 
     if ((e.hash & oldCap) == 0) {
@@ -54,6 +56,7 @@ date: 2018-11-12
 * `split`分拆
     
 
+
     if (lc <= UNTREEIFY_THRESHOLD)
         tab[index] = loHead.untreeify(map);
     else {
@@ -71,6 +74,7 @@ date: 2018-11-12
 
 * `removeAll`/`batchRemove` 批量删除
     
+
 
     public boolean removeAll(Collection<?> c) {
         Objects.requireNonNull(c);
@@ -105,6 +109,8 @@ date: 2018-11-12
         }
         return modified;
     }
+
+
 
 数组的批量移除，设定两个游标，一个指定当前判断的元素r，一个指向当前有效的元素w，如果r为有效元素，则把r指向的元素指向w指向的位置，同时r++,w++，否则r++。最后，把w开始的位置，到列表最后，全部置为null即可。
 思路：把后一个有效元素覆盖当前无效元素
