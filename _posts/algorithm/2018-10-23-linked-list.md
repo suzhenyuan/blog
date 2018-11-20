@@ -3,7 +3,7 @@ layout: post_layout
 comments: true
 title: 链表相关算法总结
 sub_title: 
-meta-keyword:算法, 链表, algorithm, linked list, acm, leetcode
+meta-keyword: 算法, 链表, algorithm, linked list, acm, leetcode
 meta-description: 链表相关算法总结
 categories: algorithm
 tags: algorithm, linked list

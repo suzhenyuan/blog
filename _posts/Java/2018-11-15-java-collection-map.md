@@ -3,7 +3,7 @@ layout: post_layout
 comments: true
 title: JAVA集合介绍之Map
 sub_title: 
-meta-keyword:java, 链表, algorithm, collection, 集合
+meta-keyword: java, 链表, algorithm, collection, 集合
 meta-description: JAVA集合介绍之Map
 categories: algorithm
 tags: algorithm, linked list
