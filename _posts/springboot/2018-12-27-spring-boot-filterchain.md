@@ -3,7 +3,7 @@ layout: post_layout
 comments: true
 title: Servlet filter的责任链模式
 sub_title: 
-meta-keyword:Servlet,filter,责任链模式,设计模式
+meta-keyword: Servlet,filter,责任链模式,设计模式
 meta-description: 通过对FilterChain源代码的分析，了解其责任链实现模式
 categories: spring-boot
 tags: Servlet, filter
