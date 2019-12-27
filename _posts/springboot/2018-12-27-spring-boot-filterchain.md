@@ -1,5 +1,5 @@
 ---
-layout: post_layout
+
 comments: true
 title: Servlet filter的责任链模式
 sub_title: 

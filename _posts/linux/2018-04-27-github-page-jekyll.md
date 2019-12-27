@@ -1,5 +1,5 @@
 ---
-layout: default
+
 comments: true
 title: Jekyll for github page
 categories: Linux

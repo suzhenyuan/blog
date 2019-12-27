@@ -1,52 +1,98 @@
-<?xml version="1.0" encoding="utf-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">> 
-
-  <url> 
-    <loc>/spring-boot/2018/10/12/how-to-shutdown-a-spring-boot-application.html</loc>  
-    <lastmod>2018-10-12T00:00:00+08:00</lastmod>  
-    <priority>1.0</priority> 
-  </url>
-  
-  <url> 
-    <loc>/spring-cloud/2018/09/22/introduce-to-eureka.html</loc>  
-    <lastmod>2018-09-22T00:00:00+08:00</lastmod>  
-    <priority>1.0</priority> 
-  </url>
-  
-  <url> 
-    <loc>/spring-cloud/2018/09/21/spring-cloud-before-started.html</loc>  
-    <lastmod>2018-09-21T00:00:00+08:00</lastmod>  
-    <priority>1.0</priority> 
-  </url>
-  
-  <url> 
-    <loc>/linux/2018/05/04/git-hacks.html</loc>  
-    <lastmod>2018-05-04T00:00:00+08:00</lastmod>  
-    <priority>1.0</priority> 
-  </url>
-  
-  <url> 
-    <loc>/java/2018/04/28/java-hacks.html</loc>  
-    <lastmod>2018-04-28T00:00:00+08:00</lastmod>  
-    <priority>1.0</priority> 
-  </url>
-  
-  <url> 
-    <loc>/linux/2018/04/27/nginx-hacks.html</loc>  
-    <lastmod>2018-04-27T00:00:00+08:00</lastmod>  
-    <priority>1.0</priority> 
-  </url>
-  
-  <url> 
-    <loc>/linux/2018/04/27/linux-hacks.html</loc>  
-    <lastmod>2018-04-27T00:00:00+08:00</lastmod>  
-    <priority>1.0</priority> 
-  </url>
-  
-  <url> 
-    <loc>/linux/2018/04/27/github-page-jekyll.html</loc>  
-    <lastmod>2018-04-27T00:00:00+08:00</lastmod>  
-    <priority>1.0</priority> 
-  </url>
-   
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://localhost:4000/linux/2018/04/27/github-page-jekyll.html</loc>
+<lastmod>2018-04-27T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/linux/2018/04/27/linux-hacks.html</loc>
+<lastmod>2018-04-27T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/linux/2018/04/27/nginx-hacks.html</loc>
+<lastmod>2018-04-27T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/java/2018/04/28/java-hacks.html</loc>
+<lastmod>2018-04-28T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/linux/2018/05/04/git-hacks.html</loc>
+<lastmod>2018-05-04T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/2018/06/01/header-image.html</loc>
+<lastmod>2018-06-01T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/2018/07/01/welcome.html</loc>
+<lastmod>2018-07-01T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/spring-cloud/2018/09/21/spring-cloud-before-started.html</loc>
+<lastmod>2018-09-21T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/spring-cloud/2018/09/22/introduce-to-eureka.html</loc>
+<lastmod>2018-09-22T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/spring-boot/2018/10/12/how-to-shutdown-a-spring-boot-application.html</loc>
+<lastmod>2018-10-12T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/spring-boot/2018/10/19/spring-security-csrf.html</loc>
+<lastmod>2018-10-19T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/spring-cloud/2018/10/19/introduce-to-feign-source-code.html</loc>
+<lastmod>2018-10-19T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/algorithm/2018/10/23/linked-list.html</loc>
+<lastmod>2018-10-23T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/spring-boot/2018/11/07/introduce-to-spring-aop.html</loc>
+<lastmod>2018-11-07T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/spring-boot/2018/11/07/use-template-code-to-eliminate-boilerplate-code.html</loc>
+<lastmod>2018-11-07T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/java/2018/11/12/java-source.html</loc>
+<lastmod>2018-11-12T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/linux/2018/11/14/openresty-lua-lapis.html</loc>
+<lastmod>2018-11-14T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/algorithm/2018/11/15/java-collection-map.html</loc>
+<lastmod>2018-11-15T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/linux/2018/11/20/mysql-hacks.html</loc>
+<lastmod>2018-11-20T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/spring-boot/2018/12/27/spring-boot-filterchain.html</loc>
+<lastmod>2018-12-27T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/about.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/archive.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page2/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page3/</loc>
+</url>
 </urlset>

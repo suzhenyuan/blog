@@ -1,12 +1,10 @@
 ---
-layout: post_layout
-comments: true
-title: spring cloud开始之旅，说在前面的话
-sub_title: 无版本号不成参考。本系列涉及到的版本号为Finchley.SR1(基本都是2.0.x.RELEASE)
-meta-description: spring cloud before started, version of spring boot & cloud must be declare first
+
+title: Spring cloud 版本介绍
+tags: spring-cloud, eureka
+aside:
+  toc: true
 categories: spring-cloud
-tags: spring-cloud,eureka
-description: 在开始spring cloud开发之旅之前，先了解一下spring boot & cloud的版本情况。spring cloud系列的博文会使用Finchley.SR1的版本
 ---
 
 在csdn和博客园上阅览了无数千遍一律的spring cloud博文，我觉得，我需要指明目前使用到的版本号。无版本号不成参考。

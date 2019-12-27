@@ -1,5 +1,5 @@
 ---
-layout: post_layout
+
 comments: true
 title: JAVA 源代码阅读
 sub_title: 

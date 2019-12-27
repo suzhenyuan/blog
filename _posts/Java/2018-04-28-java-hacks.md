@@ -1,5 +1,5 @@
 ---
-layout: default
+
 comments: true
 title: Java Hacks
 categories: Java

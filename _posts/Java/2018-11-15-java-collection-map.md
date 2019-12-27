@@ -1,5 +1,5 @@
 ---
-layout: post_layout
+
 comments: true
 title: JAVA集合介绍之Map
 sub_title: 

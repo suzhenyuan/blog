@@ -1,5 +1,5 @@
 ---
-layout: post_layout
+
 comments: true
 title: openResty lua lapis环境安装
 sub_title: 

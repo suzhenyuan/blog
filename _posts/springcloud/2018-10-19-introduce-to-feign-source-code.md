@@ -1,13 +1,10 @@
 ---
-layout: post_layout
-comments: true
+
 title: feign源代码解析
-sub_title: 
-meta-keyword: spring boot,eureka server, service discovery, feign, feign source code
-meta-description: Introduce to feign source code.[2.0.1.RELEASE]
+tags: spring-cloud, feign
+aside:
+  toc: true
 categories: spring-cloud
-tags: spring-cloud,feign
-description: feign 源代码解析，分析了restTemplate、request与response工作原理与流程，最后介绍了cloud项目的异常统一处理方式。
 ---
 
 

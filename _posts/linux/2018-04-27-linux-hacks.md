@@ -1,5 +1,5 @@
 ---
-layout: post_layout
+
 comments: true
 title: Linux Hacks
 categories: Linux

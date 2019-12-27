@@ -1,5 +1,5 @@
 ---
-layout: post_layout
+
 comments: true
 title: 使用模板代码去消除样板式代码
 sub_title: 

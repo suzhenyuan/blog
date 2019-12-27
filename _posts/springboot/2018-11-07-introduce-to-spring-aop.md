@@ -1,5 +1,5 @@
 ---
-layout: post_layout
+
 comments: true
 title: Spring AOP 切面编程介绍
 sub_title: 

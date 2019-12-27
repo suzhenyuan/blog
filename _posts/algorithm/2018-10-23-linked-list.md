@@ -1,5 +1,5 @@
 ---
-layout: post_layout
+
 comments: true
 title: 链表相关算法总结
 sub_title: 

@@ -1,5 +1,5 @@
 ---
-layout: post_layout
+
 comments: true
 title: Spring Secutiry安全配置WebSecurityConfigurerAdapter
 sub_title: 
