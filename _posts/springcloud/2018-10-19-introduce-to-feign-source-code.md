@@ -7,7 +7,6 @@ aside:
 categories: spring-cloud
 ---
 
-
 ## pom配置
 
 本文介绍的feign版本为`2.0.1.RELEASE`， pom设置如下所示：
@@ -25,61 +24,62 @@ categories: spring-cloud
 * InvocationHandlerFactory
   控制反转调用入口在`feign.InvocationHandlerFactory.class`中
 
-    
+  
     static final class Default implements InvocationHandlerFactory {
     	@Override
     	public InvocationHandler create(Target target, Map<Method, MethodHandler> dispatch) {
     		return new ReflectiveFeign.FeignInvocationHandler(target, dispatch);
     	}
     }
-    
-
+  
 * ReflectiveFeign
-    
+  
+
 feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接调本地方法就行了，不需要往下执行。
     
 	
     @Override
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		if ("equals".equals(method.getName())) {
-			try {
-				Object otherHandler = args.length > 0 && args[0] != null ? Proxy.getInvocationHandler(args[0]) : null;
-				return equals(otherHandler);
-			} catch (IllegalArgumentException e) {
-				return false;
-			}
-		} else if ("hashCode".equals(method.getName())) {
-			return hashCode();
-		} else if ("toString".equals(method.getName())) {
-			return toString();
-		}
-		return dispatch.get(method).invoke(args);
-	}
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    	if ("equals".equals(method.getName())) {
+    		try {
+    			Object otherHandler = args.length > 0 && args[0] != null ? Proxy.getInvocationHandler(args[0]) : null;
+    			return equals(otherHandler);
+    		} catch (IllegalArgumentException e) {
+    			return false;
+    		}
+    	} else if ("hashCode".equals(method.getName())) {
+    		return hashCode();
+    	} else if ("toString".equals(method.getName())) {
+    		return toString();
+    	}
+    	return dispatch.get(method).invoke(args);
+    }
 
 * SynchronousMethodHandler
   
    上文`dispatch.get(method).invoke(args);`调用函数如下：
 
 
-   
+
     @Override
-	public Object invoke(Object[] argv) throws Throwable {
-		RequestTemplate template = buildTemplateFromArgs.create(argv);
-		Retryer retryer = this.retryer.clone();
-		while (true) {
-			try {
-				return executeAndDecode(template);
-			} catch (RetryableException e) {
-				retryer.continueOrPropagate(e);
-				if (logLevel != Logger.Level.NONE) {
-					logger.logRetry(metadata.configKey(), logLevel);
-				}
-				continue;
-			}
-		}
-	}
-	
-	
+    public Object invoke(Object[] argv) throws Throwable {
+    	RequestTemplate template = buildTemplateFromArgs.create(argv);
+    	Retryer retryer = this.retryer.clone();
+    	while (true) {
+    		try {
+    			return executeAndDecode(template);
+    		} catch (RetryableException e) {
+    			retryer.continueOrPropagate(e);
+    			if (logLevel != Logger.Level.NONE) {
+    				logger.logRetry(metadata.configKey(), logLevel);
+    			}
+    			continue;
+    		}
+    	}
+    }
+
+
+​	
 
    这里做了几个事情：
     - RequestTemplate: 组装请求参数
@@ -171,7 +171,7 @@ feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接�
     			}
     		}
     	}    
-    
+
 
    - 这里通过httpclient发送请求
    - 请求回来的处理，根据response.status()来采取不同的策略，这里需要关注的是errorDecoder。
@@ -180,7 +180,7 @@ feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接�
 
    在服务提供者与服务消费者之间，如果需要把提供者发生的异常传递给消费者，提供者可以通过`@ControllerAdvice`捕捉异常，返回500. 如下所示：
 
-   
+
     @ControllerAdvice
     public class ProviderControllerAdviceHandler {
     
@@ -212,12 +212,13 @@ feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接�
     }
 
    
+
 `@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)` 是重点
 
    在消费者端自定义feign的errorDecoder，如下所示：
 
-    
-	
+
+​	
     public class FeignErrorDecoder implements ErrorDecoder{
     
     	public Exception decode(String methodKey, Response response) {
@@ -238,8 +239,8 @@ feign调用invoke入口(cglib)，这里equals()、hashCode()和toString()直接�
 
    消费者统一异常处理流程如下：
 
-    
-	
+
+​	
     @ControllerAdvice
     public class GlobalExceptionHandler {
     	private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
