@@ -3,7 +3,7 @@ layout: post_layout
 comments: true
 title: redis命令大全
 sub_title: 
-meta-keyword:redis, command
+meta-keyword: redis, command
 meta-description: 整理了redis相关命令及用法，以及常见应用场景分析
 categories: spring-boot
 tags: spring-boot, docker
@@ -12,6 +12,7 @@ date: 2018-11-21
 ---
 
 ## Connection相关命令
+
   * AUTH password 连接到密码保护的redis服务器时，请求授权
   
   * ECHO message  输出信息

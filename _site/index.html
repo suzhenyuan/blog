@@ -276,41 +276,101 @@
               <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
 
 <!-- end custom main top snippet --><article itemscope itemtype="http://schema.org/WebPage"><header style="display:none;"><h1>Home</h1></header><meta itemprop="headline" content="Home"><meta itemprop="author" content="独孤求学"/><div class="js-article-content"><div class="layout--articles"><div class="article-list items items--divided"><article class="item" itemscope itemtype="http://schema.org/BlogPosting"><div class="item__content">
-          <header><a href="/spring-cloud/2019/12/01/introduce-to-kafka.html"><h2 itemprop="headline" class="item__header">深入了解kafka分布式消息队列</h2></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">一、Kafka 的架构解读
+          <header><a href="/2019/12/26/lua-multiple-file.html"><h2 itemprop="headline" class="item__header">Lua Multiple File</h2></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">Spreading a Lua Lapis application across multiple files
 
-1.1. kafka的系统架构图
+
+  app.lua
+local app = lapis.Application()
+package.loaded.app = app
+
+
+require “app_1”
+require “app_2”
+
+return app
+
+
+  app_1.lua
+local app = require “app”
+
+
+app:get(“/hello”, function(self) end)
+app:post(“/world”, function(self) end)
+
+
+  app_2.lua
+local app = require “app”
+
+
+app:get(“/user/...</div><p><a href="/2019/12/26/lua-multiple-file.html">Read more</a></p></div><div class="article__info clearfix"><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Dec 26, 2019</span>
+            </li></ul></div><meta itemprop="author" content="独孤求学"/><meta itemprop="datePublished" content="2019-12-26T10:40:35+08:00"></div>
+      </article><article class="item" itemscope itemtype="http://schema.org/BlogPosting"><div class="item__content">
+          <header><a href="/kafka/2019/12/02/day02-create-a-topic.html"><h2 itemprop="headline" class="item__header">第二天-创建一个主题topic</h2></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">认识broker分区，</div><p><a href="/kafka/2019/12/02/day02-create-a-topic.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=kafka">kafka</a>
+            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Dec 02, 2019</span>
+            </li></ul></div><meta itemprop="author" content="独孤求学"/><meta itemprop="datePublished" content="2019-12-02T00:00:00+08:00">
+    <meta itemprop="keywords" content="kafka"></div>
+      </article><article class="item" itemscope itemtype="http://schema.org/BlogPosting"><div class="item__content">
+          <header><a href="/kafka/2019/12/01/day01-introduce-to-kafka.html"><h2 itemprop="headline" class="item__header">第一天-初步接触kafka分布式消息队列</h2></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">读过kafka文档之后，对kafka有了一定的认识，打算从以下几方面进行总结：
+
+
+  kafka系统架构介绍
+  kafka涉及到的相关术语
+  分区、副本与日志介绍
+  消息生产过程介绍
+  消息消费过程介绍
+
+
+一、Kafka 的架构解读
+
+1.1. kafka系统架构
 
 基于kafka-zookeeper的系统架构如下所示：
 
 
 
-从上图可以看出，一个典型的kafka系统包括什么内容？
+从上图可以看出，一个典型的kafka系统包括，若干服务实例broker，若干消息生产者producer，若干消息消费者consumer（Group），以及zookeeper集群。kafka集群通过zookeeper实现服务配置与服务发现，实现leader选举和consumer group 的rebalance，消息生产者通过push方式把消息提交到b...</div><p><a href="/kafka/2019/12/01/day01-introduce-to-kafka.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=kafka">kafka</a>
+            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Dec 01, 2019</span>
+            </li></ul></div><meta itemprop="author" content="独孤求学"/><meta itemprop="datePublished" content="2019-12-01T00:00:00+08:00">
+    <meta itemprop="keywords" content="kafka"></div>
+      </article><article class="item" itemscope itemtype="http://schema.org/BlogPosting"><div class="item__content">
+          <header><a href="/kafka/2019/12/01/day00-category.html"><h2 itemprop="headline" class="item__header">七天学会kafka</h2></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">七天学会kafka目录：
 
-《然后又深入描述了broker内部的清醒》
+第一天 认识kafka
 
-1.2. kafka内部架构图：topic、partition、comsumer group
-
-topic、particle是如何负载均衡的
-
-
-1.3、术语到的术语
-
-
-  comsumer
-  producer
-  broker
-  kafka cluster
-  topic
-  partition
-  offset
-  comsumer group
-  stream
+- kafka系统架构
+- broker内部原理
+- 相关术语
+- 运行一个kafka实例
+- 运行一个kafka集群
 
 
-Kafka 为什么要将 Topic 进行分区；
+第二天 创建一个主题
 
-Kafka 高可靠性实现基础解读...</div><p><a href="/spring-cloud/2019/12/01/introduce-to-kafka.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+​	通过创建一个主题，了解分区配置、副本配置、offset、commit log保存原理、zookeeper中保存的数据
+
+第三天 分区管理
+
+根据前一天创建的主题内容，通过对分区、副本的故障转移，了解分区的选举算法、副本的同步算法
+
+第四天 消息生产
+
+​	负载均衡算法
+
+第五天 消息消费
+
+​	消费分组rebalance
+
+第六天 zookeeper角色
+
+第七天 总结</div><p><a href="/kafka/2019/12/01/day00-category.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
               <a class="button button--secondary button--pill button--sm"
                 href="/archive.html?tag=kafka">kafka</a>
             </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Dec 01, 2019</span>
@@ -337,6 +397,43 @@ public final class ApplicationFilterChain implements FilterChain {
             </li></ul></div><meta itemprop="author" content="独孤求学"/><meta itemprop="datePublished" content="2018-12-27T00:00:00+08:00">
     <meta itemprop="keywords" content="Servlet,,filter"></div>
       </article><article class="item" itemscope itemtype="http://schema.org/BlogPosting"><div class="item__content">
+          <header><a href="/spring-boot/2018/11/21/redis-commands.html"><h2 itemprop="headline" class="item__header">redis命令大全</h2></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">Connection相关命令
+
+
+  
+    AUTH password 连接到密码保护的redis服务器时，请求授权
+  
+  
+    ECHO message  输出信息
+  
+  
+    PING [message] 用于测试连接是否有效，如果message为空，则会返回PONG
+  
+  
+    QUIT 请求服务器关闭连接，总是返回OK
+  
+  
+    SELECT 切换数据库，默认0
+  
+  
+    SWAPDB index index 交换两个数据库的数据，切换成功后返回OK
+  
+
+
+GEO 地理信息相关命令
+
+  
+    GEOADD key lon lat member [log lat member] 增加一个地理位置信息。底层使用的是sorte...</div><p><a href="/spring-boot/2018/11/21/redis-commands.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=spring-boot%2C">spring-boot,</a>
+            </li><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=docker">docker</a>
+            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Nov 21, 2018</span>
+            </li></ul></div><meta itemprop="author" content="独孤求学"/><meta itemprop="datePublished" content="2018-11-21T00:00:00+08:00">
+    <meta itemprop="keywords" content="spring-boot,,docker"></div>
+      </article><article class="item" itemscope itemtype="http://schema.org/BlogPosting"><div class="item__content">
           <header><a href="/linux/2018/11/20/mysql-hacks.html"><h2 itemprop="headline" class="item__header">Mysql Hacks</h2></a></header>
           <div class="item__description"><div class="article__content" itemprop="description articleBody">统计某个字段中单词的数量
 
@@ -348,137 +445,18 @@ FROM tt_content</div><p><a href="/linux/2018/11/20/mysql-hacks.html">Read more</
             </li></ul></div><meta itemprop="author" content="独孤求学"/><meta itemprop="datePublished" content="2018-11-20T00:00:00+08:00">
     <meta itemprop="keywords" content="mysql"></div>
       </article><article class="item" itemscope itemtype="http://schema.org/BlogPosting"><div class="item__content">
-          <header><a href="/algorithm/2018/11/15/java-collection-map.html"><h2 itemprop="headline" class="item__header">JAVA集合介绍之Map</h2></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">图片来源网络，如有侵权，请联系删除
-
-Map
-
-Map是一种键值对数据对象，不能包含重复的键，每个键只能映射一个值。
-Map接口提供了三种接口视图：键集合、值集合和键-值集合。
-Map实例的顺序定义为map集合视图返回元素的迭代器的顺序。在一些map的实现中，比如TreeMap就可以保证他们的顺序，而HashMap则是无序的。
-了解map对象，主要从他的四个方面进行：
-
-  增加：put/putAll/putIfAbsent/merge
-  删除：remove/clear
-  查询：get/isEmpty/size/values/keyset
-  修改：replace
-
-
-下面将会对他的三个实现类进行介绍
-
-HashMap
-
-
-  
-    HashMap的定义
-
-    public...</div><p><a href="/algorithm/2018/11/15/java-collection-map.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+          <header><a href="/spring-boot/2018/11/20/docker-spring-boot.html"><h2 itemprop="headline" class="item__header">spring boot docker</h2></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">构建jre8环境</div><p><a href="/spring-boot/2018/11/20/docker-spring-boot.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
               <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=algorithm%2C">algorithm,</a>
+                href="/archive.html?tag=spring-boot%2C">spring-boot,</a>
             </li><li>
               <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=linked">linked</a>
-            </li><li>
-              <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=list">list</a>
-            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Nov 15, 2018</span>
-            </li></ul></div><meta itemprop="author" content="独孤求学"/><meta itemprop="datePublished" content="2018-11-15T00:00:00+08:00">
-    <meta itemprop="keywords" content="algorithm,,linked,list"></div>
-      </article><article class="item" itemscope itemtype="http://schema.org/BlogPosting"><div class="item__content">
-          <header><a href="/linux/2018/11/14/openresty-lua-lapis.html"><h2 itemprop="headline" class="item__header">openResty lua lapis环境安装</h2></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">基于windows系统
-
-openResty安装
-
-
-  
-    下载
-
-    下载win64位版本，下载地址为https://openresty.org/download/openresty-1.13.6.2-win64.zip
-  
-  
-    安装
-
-    解压后，设置环境变量。设解压目录为D:\ProgramFiles\openresty-1.13.6.2-win64，把该目录添加到PATH环境变量中
-  
-  
-    测试
-
-    打开命令行终端，输入以下代码resty -e 'print("hello,world")',看到输出hello,world表明openResty已经安装成功了。
-  
-
-
-安装luarocks
-
-  
-    下载
-
-    下载地址h...</div><p><a href="/linux/2018/11/14/openresty-lua-lapis.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
-              <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=openrest%2Clua">openrest,lua</a>
-            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Nov 14, 2018</span>
-            </li></ul></div><meta itemprop="author" content="独孤求学"/><meta itemprop="datePublished" content="2018-11-14T00:00:00+08:00">
-    <meta itemprop="keywords" content="openrest,lua"></div>
-      </article><article class="item" itemscope itemtype="http://schema.org/BlogPosting"><div class="item__content">
-          <header><a href="/java/2018/11/12/java-source.html"><h2 itemprop="headline" class="item__header">JAVA 源代码阅读</h2></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">HashMap
-
-
-  
-    putVal hash下标的确定(tab.length-1) &amp; hash
-
-    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;
-  if ((tab = table) == null || (n = tab.length) == 0)
-      n = (tab = resize()).length;
-  if ((p = tab[i = (n - 1) &amp; hash]) == null)
-      tab[i] = newNode(hash, key, value, null);
-  
-
-
-由于tab.length为2的倍数，假设为1000，减一后，变成了0111，与h...</div><p><a href="/java/2018/11/12/java-source.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
-              <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=java-code">java-code</a>
-            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Nov 12, 2018</span>
-            </li></ul></div><meta itemprop="author" content="独孤求学"/><meta itemprop="datePublished" content="2018-11-12T00:00:00+08:00">
-    <meta itemprop="keywords" content="java-code"></div>
-      </article><article class="item" itemscope itemtype="http://schema.org/BlogPosting"><div class="item__content">
-          <header><a href="/spring-boot/2018/11/07/use-template-code-to-eliminate-boilerplate-code.html"><h2 itemprop="headline" class="item__header">使用模板代码去消除样板式代码</h2></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">你是否写过这样的代码，当编写的时候总会感觉以前曾经这么写过。我的朋友，这不是似曾相识，这是样板式代码(boilerplate code)。
-通常为了实现通用和简单的任务，你不得不一遍遍地重复编写这样的代码。
-
-遗憾的是，它们中的很多都是因为使用Java API而导致的样板式代码。样板式代码的一个常见范例是使用JDBC访问数据库查询。举个例子，如果你曾经用过JDBC，那么你或许会写出类似下面的代码。
-
-public Employee getEmployeebyId(long id){
-	Connection conn = null;
-	PreparedStatement stmt = null;
-	ResultSet rs = null;
-	try{
-		conn = dataSourc...</div><p><a href="/spring-boot/2018/11/07/use-template-code-to-eliminate-boilerplate-code.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
-              <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=spring-security">spring-security</a>
-            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Nov 07, 2018</span>
-            </li></ul></div><meta itemprop="author" content="独孤求学"/><meta itemprop="datePublished" content="2018-11-07T00:00:00+08:00">
-    <meta itemprop="keywords" content="spring-security"></div>
-      </article><article class="item" itemscope itemtype="http://schema.org/BlogPosting"><div class="item__content">
-          <header><a href="/spring-boot/2018/11/07/introduce-to-spring-aop.html"><h2 itemprop="headline" class="item__header">Spring AOP 切面编程介绍</h2></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">你是否写过这样的代码，当编写的时候总会感觉以前曾经这么写过。我的朋友，这不是似曾相识，这是样板式代码(boilerplate code)。
-通常为了实现通用和简单的任务，你不得不一遍遍地重复编写这样的代码。
-
-遗憾的是，它们中的很多都是因为使用Java API而导致的样板式代码。样板式代码的一个常见范例是使用JDBC访问数据库查询。举个例子，如果你曾经用过JDBC，那么你或许会写出类似下面的代码。
-
-public Employee getEmployeebyId(long id){
-	Connection conn = null;
-	PreparedStatement stmt = null;
-	ResultSet rs = null;
-	try{
-		conn = dataSourc...</div><p><a href="/spring-boot/2018/11/07/introduce-to-spring-aop.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
-              <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=spring-security">spring-security</a>
-            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Nov 07, 2018</span>
-            </li></ul></div><meta itemprop="author" content="独孤求学"/><meta itemprop="datePublished" content="2018-11-07T00:00:00+08:00">
-    <meta itemprop="keywords" content="spring-security"></div>
+                href="/archive.html?tag=docker">docker</a>
+            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Nov 20, 2018</span>
+            </li></ul></div><meta itemprop="author" content="独孤求学"/><meta itemprop="datePublished" content="2018-11-20T00:00:00+08:00">
+    <meta itemprop="keywords" content="spring-boot,,docker"></div>
       </article></div>
-</div><div class="layout--home"><div class="pagination"><p>19 post articles, 3 pages.</p>
+</div><div class="layout--home"><div class="pagination"><p>27 post articles, 4 pages.</p>
     <div class="pagination__menu">
       <ul class="menu menu--nowrap"><li><div class="button button--secondary button--circle disabled">
             <i class="fas fa-angle-left"></i>
@@ -488,6 +466,8 @@ public Employee getEmployeebyId(long id){
                 <a class="button button--secondary button--circle" href="/page2"><span>2</span></a>
               </li><li>
                 <a class="button button--secondary button--circle" href="/page3"><span>3</span></a>
+              </li><li>
+                <a class="button button--secondary button--circle" href="/page4"><span>4</span></a>
               </li><li><a class="button button--secondary button--circle" href="/page2">
             <i class="fas fa-angle-right"></i>
           </a></li></ul>

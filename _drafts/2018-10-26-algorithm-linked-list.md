@@ -3,7 +3,7 @@ layout: post_layout
 comments: true
 title: 链表相关算法总结
 sub_title: 
-meta-keyword:算法, 链表, algorithm, linked list, acm, leetcode
+meta-keyword: 算法, 链表, algorithm, linked list, acm, leetcode
 meta-description: 链表相关算法总结
 categories: algorithm
 tags: algorithm, linked list
@@ -51,7 +51,7 @@ date: 2018-10-26
     (1) [2] 3 4 5
     1 (2) 3 [4] 5
     1  2 (3) 4 5 []
- 
+
 * 第三种情况:慢指针的起点在链表头的前一个节点，快指针的起点在链表头
 
 示例1：
